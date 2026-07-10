@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Task-Oriented Dexterous Grasping via Grasp Taxonomy</title>
+<meta name="description" content="A task-oriented dexterous grasp generation framework that bridges task intention and executable multi-finger grasps through a grasp taxonomy and a Contact Web based two-point opposition representation." />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Task-Oriented Dexterous Grasping via Grasp Taxonomy" />
+<meta property="og:description" content="Bridging task intention and executable multi-finger grasps through a grasp taxonomy and Contact Web based two-point opposition." />
+<meta property="og:image" content="static/images/fig1_pipeline.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="container">
+    <p class="venue">IROS 2026 · Submitted</p>
+    <h1 class="title">Task-Oriented Dexterous Grasping<br class="br-desktop" /> via Grasp Taxonomy</h1>
+
+    <div class="authors">
+      <span class="author"><a href="#">Hyunwoo Kim</a><sup>1</sup></span>
+      <span class="author"><a href="#">Jeonghwan Choi</a><sup>1</sup></span>
+      <span class="author"><a href="#">Dohyun Kim</a><sup>2</sup></span>
+      <span class="author"><a href="#">Juntae Hwang</a><sup>3</sup></span>
+      <span class="author"><a href="#">Ilsung Jin</a><sup>4</sup></span>
+      <span class="author"><a href="#">Donghan Kim</a><sup>1,*</sup></span>
+    </div>
+
+    <div class="affils">
+      <span><sup>1</sup> Dept. of Electronic Engineering (AgeTech-Service Convergence Major), Kyung Hee University</span>
+      <span><sup>2</sup> Dept. of Electronic Engineering, Kyung Hee University</span>
+      <span><sup>3</sup> Dept. of Convergence Security, Kyung Hee University</span>
+      <span><sup>4</sup> Dept. of Artificial Intelligence, Kyung Hee University</span>
+      <span class="corr"><sup>*</sup> Corresponding author</span>
+    </div>
+
+    <nav class="buttons" aria-label="Resources">
+      <a class="btn btn-solid" href="static/pdfs/paper.pdf">
+        <span class="btn-ic">📄</span> Paper
+      </a>
+      <a class="btn" href="#" data-disabled="true" title="Coming soon">
+        <span class="btn-ic">⌗</span> arXiv <span class="soon">soon</span>
+      </a>
+      <a class="btn" href="#" data-disabled="true" title="Coming soon">
+        <span class="btn-ic">&lt;/&gt;</span> Code <span class="soon">soon</span>
+      </a>
+      <a class="btn" href="#video">
+        <span class="btn-ic">▶</span> Video
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ TEASER ============ -->
+<section class="section teaser-section">
+  <div class="container">
+    <figure class="figure figure-wide">
+      <img src="static/images/fig1_pipeline.png" alt="Overview of the proposed pipeline" loading="lazy" />
+      <figcaption>
+        <b>Overview of the pipeline.</b> Given an instruction and an object point cloud, a task-oriented
+        grasping (TOG) model predicts task-relevant <em>parallel gripper</em> grasp poses, while an LLM
+        performs grasp-type reasoning to select a grasp taxonomy. A semantic contact prediction module
+        estimates a Contact Semantic Map conditioned on the grasp pose and taxonomy, and a grasp generation
+        module synthesizes executable <em>dexterous</em> grasps from the predicted contact distributions.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ TL;DR ============ -->
+<section class="section tldr">
+  <div class="container narrow">
+    <p>
+      <span class="tldr-tag">TL;DR</span>
+      We use a <strong>grasp taxonomy</strong> as an intermediate representation between task intention and
+      hand–object contact, converting dexterous grasps into a consistent <strong>two-point opposition</strong>
+      (OP<sub>1</sub>, OP<sub>2</sub>) via the Contact Web to extend task-oriented parallel-gripper pipelines
+      to <strong>dexterous hands</strong>.
+    </p>
+  </div>
+</section>
+
+<!-- ============ ABSTRACT ============ -->
+<section class="section" id="abstract">
+  <div class="container narrow">
+    <h2 class="h2"><span class="h2-mark"></span>Abstract</h2>
+    <p class="body">
+      Task-oriented grasping requires selecting grasp strategies that match the intended use of an object,
+      but most existing approaches are limited to parallel grippers and do not fully exploit the contact
+      diversity of dexterous hands. In this work, we propose a task-oriented dexterous grasp generation
+      framework that bridges the gap between task intention and executable multi-finger grasps through a
+      grasp taxonomy and contact representation. We first convert the dexterous hand grasp taxonomy into a
+      consistent 2-point opposition representation using the Contact Web, enabling alignment with
+      task-oriented parallel gripper grasp poses. We then predict a taxonomy-conditioned Contact Semantic
+      Map from the object point cloud, grasp pose, and grasp taxonomy, and use it to guide transformer-based
+      dexterous grasp generation. In real-world experiments on unseen household objects, our approach
+      successfully translates diverse grasp taxonomies into stable and task-consistent dexterous executions.
+      These results demonstrate that a grasp taxonomy is an effective intermediate representation for
+      extending existing task-oriented grasping pipelines to dexterous hands.
+    </p>
+  </div>
+</section>
+
+<!-- ============ VIDEO ============ -->
+<section class="section" id="video">
+  <div class="container narrow">
+    <h2 class="h2"><span class="h2-mark"></span>Video</h2>
+    <div class="video-frame">
+      <!-- Replace src with your uploaded video, e.g. static/videos/demo.mp4 -->
+      <video controls poster="static/images/fig6_results.png" preload="none">
+        <source src="static/videos/demo.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <p class="cap-note">Add your demo video at <code>static/videos/demo.mp4</code>.</p>
+  </div>
+</section>
+
+<!-- ============ METHOD ============ -->
+<section class="section" id="method">
+  <div class="container narrow">
+    <h2 class="h2"><span class="h2-mark"></span>Method</h2>
+    <p class="body">
+      Our goal is to generate a dexterous grasp <span class="mono">𝒢<sup>dex</sup></span> that satisfies the
+      task intention, given an object point cloud, a task-oriented parallel-gripper grasp pose, and a grasp
+      taxonomy inferred by an LLM. We address the gap between multi-finger contact and the two-point action
+      space of parallel grippers with a <strong>three-stage framework</strong>.
+    </p>
+
+    <!-- stage strip -->
+    <ol class="stages">
+      <li>
+        <span class="stage-no">01</span>
+        <h3>Taxonomy → Two-Point Opposition</h3>
+        <p>Reformulate dexterous contacts as a Contact Web and reduce multi-finger contacts to a consistent
+          (OP<sub>1</sub>, OP<sub>2</sub>) opposition aligned with parallel grasps.</p>
+      </li>
+      <li>
+        <span class="stage-no">02</span>
+        <h3>Taxonomy-Conditioned Contact Map</h3>
+        <p>Predict a FiLM-conditioned Contact Semantic Map of finger-level contact distributions on the
+          object surface.</p>
+      </li>
+      <li>
+        <span class="stage-no">03</span>
+        <h3>Dexterous Grasp Generation</h3>
+        <p>A transformer-based generative model synthesizes executable dexterous grasps, refined with
+          test-time adaptation.</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="container">
+    <figure class="figure">
+      <img src="static/images/fig2_conversion.png" alt="Conversion from grasp taxonomy to parallel gripper representation" loading="lazy" />
+      <figcaption>
+        <b>Taxonomy-to-opposition conversion.</b> Feix taxonomy grasp types (Power / Intermediate / Precision)
+        are reduced to a two-point opposition. For typical grasps, OP<sub>1</sub> is selected from the VF<sub>1</sub>
+        group and OP<sub>2</sub> is found along the contact vector on the Contact Web; for ring-like grasps,
+        OP<sub>2</sub> is the centroid of finger contacts and OP<sub>1</sub> lies on the opposing palm region.
+      </figcaption>
+    </figure>
+
+    <figure class="figure">
+      <img src="static/images/fig3_framework.png" alt="Contact Semantic based dexterous grasp generation framework" loading="lazy" />
+      <figcaption>
+        <b>Contact Semantic based generation.</b> (top) A FiLM-conditioned model predicts contact
+        distributions from the object point cloud, grasp pose, and taxonomy; (bottom) a transformer-based
+        module synthesizes the dexterous grasp, followed by test-time optimization.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section class="section alt" id="results">
+  <div class="container narrow">
+    <h2 class="h2"><span class="h2-mark"></span>Results</h2>
+    <p class="body">
+      We evaluate the framework on five unseen household objects (glue gun, mug, pitcher, knife, spatula) with a
+      UR3 manipulator, an Allegro Hand V5, and an Intel RealSense D435i. We report geometric conversion analysis,
+      an ablation on contact-map prediction, and real-world grasping success.
+    </p>
+
+    <!-- headline stats -->
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-num">59.3<span>%</span></div>
+        <div class="stat-lab">Top-1 grasp success rate</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">0.631</div>
+        <div class="stat-lab">Contact-map mF1 (full model)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3–6<span>°</span></div>
+        <div class="stat-lab">Median angular deviation<br />(precision grasps)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <figure class="figure figure-wide">
+      <img src="static/images/fig5_deviation.png" alt="Angular and center deviation after taxonomy-to-parallel conversion" loading="lazy" />
+      <figcaption>
+        <b>Conversion fidelity.</b> Angular (top) and center (bottom) deviation after taxonomy-to-parallel
+        conversion across grasp types. Grasps with clear multi-finger opposition (Tip Pinch, Precision Sphere,
+        Inferior Pincer) convert reliably; scale-dependent grasps (Adduction Grip, Stick, Ventral) show larger
+        variance, yet center deviation stays within ~1.5 cm for most taxonomies.
+      </figcaption>
+    </figure>
+  </div>
+
+  <div class="container narrow">
+    <h3 class="h3">Ablation on contact semantic map prediction</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Method</th><th>mIoU</th><th>mPrecision</th><th>mRecall</th><th>mF1</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hl"><td>Full model</td><td>0.462</td><td>0.482</td><td>0.916</td><td>0.631</td></tr>
+          <tr><td>w/o Distance Feature</td><td>0.435</td><td>0.495</td><td>0.788</td><td>0.605</td></tr>
+          <tr><td>w/o Alignment Feature</td><td>0.080</td><td>0.125</td><td>0.249</td><td>0.147</td></tr>
+          <tr><td>w/o Hand-centric Rep.</td><td>0.036</td><td>0.067</td><td>0.183</td><td>0.069</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cap-note">
+      Grasp-centric coordinate normalization and direction-aware geometric encoding are critical:
+      removing hand-centric representation collapses mIoU to 0.036.
+    </p>
+
+    <h3 class="h3">Key findings from real-world trials</h3>
+    <div class="findings">
+      <div class="finding">
+        <span class="finding-k">Grasp pose quality</span>
+        <p>Top-1 poses reach <b>59.3%</b> success vs. <b>48.0%</b> for Top-2; lower-ranked poses increase slip
+          from 20.7% to 28.0%.</p>
+      </div>
+      <div class="finding">
+        <span class="finding-k">Grasp taxonomy matters</span>
+        <p>Replacing the task-relevant taxonomy with a functionally opposite one drops success from
+          <b>59.3%</b> to <b>35.3%</b> at the same grasp pose.</p>
+      </div>
+      <div class="finding">
+        <span class="finding-k">Slip vs. failure</span>
+        <p>Failures manifest as <b>slippage</b> more than complete failure — contact forms, but stability
+          suffers for elongated / cylindrical objects.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <figure class="figure figure-wide">
+      <img src="static/images/fig6_results.png" alt="Successful task-oriented dexterous grasp examples" loading="lazy" />
+      <figcaption>
+        <b>Qualitative results.</b> Successful task-oriented dexterous grasp examples across different grasp
+        taxonomies and tasks (pour, drink, hand-over, stir, cut, pick).
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ BIBTEX ============ -->
+<section class="section" id="bibtex">
+  <div class="container narrow">
+    <h2 class="h2"><span class="h2-mark"></span>BibTeX</h2>
+    <div class="bib">
+      <button class="copy-btn" id="copyBtn" aria-label="Copy BibTeX">Copy</button>
+      <pre id="bibtex">@inproceedings{kim2026taskoriented,
+  title     = {Task-Oriented Dexterous Grasping via Grasp Taxonomy},
+  author    = {Kim, Hyunwoo and Choi, Jeonghwan and Kim, Dohyun and
+               Hwang, Juntae and Jin, Ilsung and Kim, Donghan},
+  booktitle = {IEEE/RSJ International Conference on Intelligent Robots
+               and Systems (IROS)},
+  year      = {2026}
+}</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACKNOWLEDGMENT ============ -->
+<section class="section" id="ack">
+  <div class="container narrow">
+    <h2 class="h2"><span class="h2-mark"></span>Acknowledgment</h2>
+    <p class="body small">
+      This research was supported by the MSIT (Ministry of Science and ICT), Korea, under the Convergence
+      Security Core Talent Training Business Support Program (IITP-2023-RS-2023-00266615) supervised by the
+      IITP; the BK21 FOUR program "AgeTech-Service Convergence Major" through the NRF funded by the Ministry
+      of Education of Korea; the IITP grant funded by MSIT (No. RS-2022-00155911); the Technology Innovation
+      Program funded by MOTIE, Korea; and Smart Farm programs through IPET and KosFarm funded by MAFRA, MSIT,
+      and RDA.
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container narrow">
+    <p>
+      Kyung Hee University &middot; 2026 &nbsp;|&nbsp;
+      Page style inspired by the
+      <a href="https://github.com/eliahuhorwitz/Academic-project-page-template">Academic Project Page Template</a>.
+    </p>
+  </div>
+</footer>
+
+<script src="static/js/script.js"></script>
+</body>
+</html>
