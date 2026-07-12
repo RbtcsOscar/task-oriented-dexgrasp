@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task-Oriented Dexterous Grasping via Grasp Taxonomy</title>
+  <meta name="description" content="A task-oriented dexterous grasp generation framework that bridges task intention and executable multi-finger grasps through a grasp taxonomy and a Contact Web based two-point opposition representation.">
+
+  <meta property="og:title" content="Task-Oriented Dexterous Grasping via Grasp Taxonomy">
+  <meta property="og:description" content="Bridging task intention and executable multi-finger grasps through a grasp taxonomy and Contact Web based two-point opposition.">
+  <meta property="og:image" content="static/images/overview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+
+<!-- ===================== HERO / TITLE ===================== -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+
+          <h1 class="title is-1 publication-title">
+            Task-Oriented Dexterous Grasping via Grasp Taxonomy
+          </h1>
+
+          <div class="is-size-5 publication-venue">
+            IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2026
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="#">Hyunwoo Kim</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="#">Jeonghwan Choi</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="#">Dohyun Kim</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="#">Juntae Hwang</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="#">Ilsung Jin</a><sup>4</sup>,</span>
+            <span class="author-block">
+              <a href="#">Donghan Kim</a><sup>1,*</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-affiliations">
+            <span class="affil-block"><sup>1</sup>Dept. of Electronic Engineering (AgeTech-Service Convergence Major), Kyung Hee University</span><br>
+            <span class="affil-block"><sup>2</sup>Dept. of Electronic Engineering, Kyung Hee University</span><br>
+            <span class="affil-block"><sup>3</sup>Dept. of Convergence Security, Kyung Hee University</span><br>
+            <span class="affil-block"><sup>4</sup>Dept. of Artificial Intelligence, Kyung Hee University</span><br>
+            <span class="affil-block"><sup>*</sup>Corresponding author</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Paper -->
+              <span class="link-block">
+                <a href="static/pdfs/paper.pdf" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- arXiv -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark is-disabled">
+                  <span class="icon"><i class="ai ai-arxiv"></i><i class="fas fa-file"></i></span>
+                  <span>arXiv (soon)</span>
+                </a>
+              </span>
+              <!-- Code -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark is-disabled">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code (soon)</span>
+                </a>
+              </span>
+              <!-- Video -->
+              <span class="link-block">
+                <a href="#video" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-youtube"></i></span>
+                  <span>Video</span>
+                </a>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TEASER VIDEO ===================== -->
+<section class="hero teaser" id="video">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" controls muted playsinline poster="static/images/real_results.png">
+        <source src="static/videos/demo.mp4" type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        We use a <span class="dnerf">grasp taxonomy</span> as an intermediate representation between task
+        intention and hand&ndash;object contact, converting dexterous grasps into a consistent
+        <b>two-point opposition</b> (OP<sub>1</sub>, OP<sub>2</sub>) to extend task-oriented parallel-gripper
+        pipelines to dexterous hands.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABSTRACT ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Task-oriented grasping requires selecting grasp strategies that match the intended use of an object,
+            but most existing approaches are limited to parallel grippers and do not fully exploit the contact
+            diversity of dexterous hands. In this work, we propose a task-oriented dexterous grasp generation
+            framework that bridges the gap between task intention and executable multi-finger grasps through a
+            grasp taxonomy and contact representation. We first convert the dexterous hand grasp taxonomy into a
+            consistent 2-point opposition representation using the Contact Web, enabling alignment with
+            task-oriented parallel gripper grasp poses. We then predict a taxonomy-conditioned Contact Semantic
+            Map from the object point cloud, grasp pose, and grasp taxonomy, and use it to guide
+            transformer-based dexterous grasp generation. In real-world experiments on unseen household objects,
+            our approach successfully translates diverse grasp taxonomies into stable and task-consistent
+            dexterous executions. These results demonstrate that a grasp taxonomy is an effective intermediate
+            representation for extending existing task-oriented grasping pipelines to dexterous hands.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OVERVIEW FIGURE ===================== -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <img src="static/images/overview.png" alt="Overview of the proposed pipeline">
+        <h2 class="title is-4 has-text-centered mt-5">Overview of the proposed pipeline.</h2>
+        <div class="content has-text-justified">
+          <p>
+            Given an instruction and an object point cloud, a task-oriented grasping (TOG) model predicts
+            task-relevant parallel gripper grasp poses, while an LLM performs grasp type reasoning to select an
+            appropriate grasp taxonomy. The semantic contact prediction module estimates a Contact Semantic Map
+            conditioned on the grasp pose and the selected taxonomy. Finally, the grasp generation module
+            synthesizes executable dexterous grasps from the predicted contact distributions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== METHOD: TAXONOMY CONVERSION ===================== -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <img src="static/images/method_taxonomy.png" alt="Conversion from dexterous grasp taxonomy to a parallel gripper representation">
+        <h2 class="title is-4 has-text-centered mt-5">Taxonomy-to-opposition conversion.</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Left:</b> Representative grasp types from the Feix taxonomy grouped into <b>Power</b>,
+            <b>Intermediate</b>, and <b>Precision</b> categories. <b>Middle:</b> Contact Web&ndash;based
+            conversion that reduces multi-finger contacts into a two-point opposition structure
+            (OP<sub>1</sub>, OP<sub>2</sub>). For typical grasps, OP<sub>1</sub> is selected from the
+            VF<sub>1</sub> group and OP<sub>2</sub> is determined from the contact web along the contact vector
+            <i>v<sub>c</sub></i>. For ring-like grasps, where palm contacts form a wrap configuration,
+            OP<sub>2</sub> is defined as the centroid of finger contact points and OP<sub>1</sub> is selected
+            from the opposing palm region. <b>Right:</b> Example dexterous grasp configurations aligned with the
+            converted parallel gripper pose for each taxonomy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== METHOD: FRAMEWORK ===================== -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <img src="static/images/method_framework.png" alt="Contact Semantic-based dexterous grasp generation framework">
+        <h2 class="title is-4 has-text-centered mt-5">Contact Semantic-based dexterous grasp generation framework.</h2>
+        <div class="content has-text-justified">
+          <p>
+            The pipeline consists of two stages: <b>(top) FiLM-conditioned Contact Semantic Map Prediction</b>,
+            which estimates contact distributions based on the object point cloud, grasp pose, and grasp
+            taxonomy; and <b>(bottom) Grasp Generation</b>, which utilizes a transformer-based module for
+            dexterous grasp synthesis followed by test-time optimization.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIMENTAL SETUP ===================== -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <img src="static/images/environment.png" alt="Experimental setup and data acquisition process">
+        <h2 class="title is-4 has-text-centered mt-5">Experimental setup and data acquisition.</h2>
+        <div class="content has-text-justified">
+          <p>
+            (a) Real-world experiment platform with a UR3 manipulator, Allegro Hand V5, and an RGB-D camera.
+            (b) Unseen household objects used in the experiments: glue gun, mug, pitcher, knife, and spatula.
+            (c) Scene reconstruction using multi-view depth observations. The segmented target object is
+            highlighted in sky blue.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONVERSION ANALYSIS ===================== -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <img src="static/images/boxplot.png" alt="Angular and center deviation after taxonomy-to-parallel conversion">
+        <h2 class="title is-4 has-text-centered mt-5">Dexterous-to-parallel conversion analysis.</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Angular deviation (top)</b> and <b>Center deviation (bottom)</b> after taxonomy-to-parallel
+            conversion across grasp types. Grasp types with clear multi-finger opposition structures (Tip Pinch,
+            Precision Sphere, Inferior Pincer) exhibit a median angular deviation of approximately
+            3&deg;&ndash;6&deg; and a center deviation of about 0.5&ndash;1.0 cm. Scale-dependent grasps
+            (Adduction Grip, Stick, Ventral) show larger variance, yet the center deviation remains within
+            1.5 cm for most grasp taxonomies.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABLATION TABLE ===================== -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Ablation on Contact Semantic Map Prediction</h2>
+        <div class="table-container">
+          <table class="table is-fullwidth is-hoverable result-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th class="has-text-right">mIoU</th>
+                <th class="has-text-right">mPrecision</th>
+                <th class="has-text-right">mRecall</th>
+                <th class="has-text-right">mF1</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="is-selected-row">
+                <td><b>Full model</b></td>
+                <td class="has-text-right"><b>0.462</b></td>
+                <td class="has-text-right">0.482</td>
+                <td class="has-text-right"><b>0.916</b></td>
+                <td class="has-text-right"><b>0.631</b></td>
+              </tr>
+              <tr>
+                <td>w/o Distance Feature</td>
+                <td class="has-text-right">0.435</td>
+                <td class="has-text-right"><b>0.495</b></td>
+                <td class="has-text-right">0.788</td>
+                <td class="has-text-right">0.605</td>
+              </tr>
+              <tr>
+                <td>w/o Alignment Feature</td>
+                <td class="has-text-right">0.080</td>
+                <td class="has-text-right">0.125</td>
+                <td class="has-text-right">0.249</td>
+                <td class="has-text-right">0.147</td>
+              </tr>
+              <tr>
+                <td>w/o Hand-centric Rep.</td>
+                <td class="has-text-right">0.036</td>
+                <td class="has-text-right">0.067</td>
+                <td class="has-text-right">0.183</td>
+                <td class="has-text-right">0.069</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Grasp-centric coordinate normalization and direction-aware geometric encoding play a critical role
+            in learning grasp-dependent contact topology. Removing hand-centric canonicalization leads to a
+            severe performance collapse, reducing mIoU to 0.036.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== REAL WORLD RESULTS ===================== -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Real-World Experiments</h2>
+        <div class="table-container">
+          <table class="table is-fullwidth is-hoverable result-table is-narrow">
+            <thead>
+              <tr>
+                <th rowspan="2">Object</th>
+                <th rowspan="2">Task</th>
+                <th colspan="3" class="has-text-centered group-l">Top-1 Pose</th>
+                <th colspan="3" class="has-text-centered group-l">Top-2 Pose</th>
+                <th colspan="3" class="has-text-centered group-l">Top-1 + WrongTax</th>
+              </tr>
+              <tr class="sub-head">
+                <th class="has-text-right group-l">Succ</th><th class="has-text-right">Slip</th><th class="has-text-right">Fail</th>
+                <th class="has-text-right group-l">Succ</th><th class="has-text-right">Slip</th><th class="has-text-right">Fail</th>
+                <th class="has-text-right group-l">Succ</th><th class="has-text-right">Slip</th><th class="has-text-right">Fail</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td rowspan="2">Knife</td><td>Hand over</td>
+                <td class="has-text-right group-l"><b>66.7</b></td><td class="has-text-right">20.0</td><td class="has-text-right">13.3</td>
+                <td class="has-text-right group-l">40.0</td><td class="has-text-right">33.3</td><td class="has-text-right">26.7</td>
+                <td class="has-text-right group-l">53.3</td><td class="has-text-right">13.3</td><td class="has-text-right">33.3</td></tr>
+              <tr><td>Cut</td>
+                <td class="has-text-right group-l"><b>66.7</b></td><td class="has-text-right">0.0</td><td class="has-text-right">33.3</td>
+                <td class="has-text-right group-l">26.7</td><td class="has-text-right">6.7</td><td class="has-text-right">66.7</td>
+                <td class="has-text-right group-l">40.0</td><td class="has-text-right">20.0</td><td class="has-text-right">40.0</td></tr>
+
+              <tr><td rowspan="2">Glue gun</td><td>Use</td>
+                <td class="has-text-right group-l"><b>86.7</b></td><td class="has-text-right">0.0</td><td class="has-text-right">13.3</td>
+                <td class="has-text-right group-l">66.7</td><td class="has-text-right">26.7</td><td class="has-text-right">6.7</td>
+                <td class="has-text-right group-l">20.0</td><td class="has-text-right">13.3</td><td class="has-text-right">66.7</td></tr>
+              <tr><td>Pick</td>
+                <td class="has-text-right group-l">20.0</td><td class="has-text-right">40.0</td><td class="has-text-right">40.0</td>
+                <td class="has-text-right group-l"><b>33.3</b></td><td class="has-text-right">53.3</td><td class="has-text-right">13.3</td>
+                <td class="has-text-right group-l">26.7</td><td class="has-text-right">33.3</td><td class="has-text-right">40.0</td></tr>
+
+              <tr><td rowspan="2">Mug</td><td>Drink</td>
+                <td class="has-text-right group-l"><b>93.3</b></td><td class="has-text-right">0.0</td><td class="has-text-right">6.7</td>
+                <td class="has-text-right group-l">26.7</td><td class="has-text-right">66.7</td><td class="has-text-right">6.7</td>
+                <td class="has-text-right group-l">40.0</td><td class="has-text-right">40.0</td><td class="has-text-right">20.0</td></tr>
+              <tr><td>Pour</td>
+                <td class="has-text-right group-l">66.7</td><td class="has-text-right">20.0</td><td class="has-text-right">13.3</td>
+                <td class="has-text-right group-l"><b>80.0</b></td><td class="has-text-right">13.3</td><td class="has-text-right">6.7</td>
+                <td class="has-text-right group-l">0.0</td><td class="has-text-right">0.0</td><td class="has-text-right">100.0</td></tr>
+
+              <tr><td rowspan="2">Pitcher</td><td>Pour</td>
+                <td class="has-text-right group-l"><b>66.7</b></td><td class="has-text-right">13.3</td><td class="has-text-right">20.0</td>
+                <td class="has-text-right group-l">40.0</td><td class="has-text-right">20.0</td><td class="has-text-right">40.0</td>
+                <td class="has-text-right group-l">0.0</td><td class="has-text-right">86.7</td><td class="has-text-right">13.3</td></tr>
+              <tr><td>Pick</td>
+                <td class="has-text-right group-l">33.3</td><td class="has-text-right">40.0</td><td class="has-text-right">26.7</td>
+                <td class="has-text-right group-l">53.3</td><td class="has-text-right">13.3</td><td class="has-text-right">33.3</td>
+                <td class="has-text-right group-l"><b>73.3</b></td><td class="has-text-right">26.7</td><td class="has-text-right">0.0</td></tr>
+
+              <tr><td rowspan="2">Spatula</td><td>Stir</td>
+                <td class="has-text-right group-l">53.3</td><td class="has-text-right">26.7</td><td class="has-text-right">20.0</td>
+                <td class="has-text-right group-l"><b>60.0</b></td><td class="has-text-right">26.7</td><td class="has-text-right">13.3</td>
+                <td class="has-text-right group-l">46.7</td><td class="has-text-right">40.0</td><td class="has-text-right">13.3</td></tr>
+              <tr><td>Hand over</td>
+                <td class="has-text-right group-l">40.0</td><td class="has-text-right">46.7</td><td class="has-text-right">13.3</td>
+                <td class="has-text-right group-l"><b>53.3</b></td><td class="has-text-right">20.0</td><td class="has-text-right">26.7</td>
+                <td class="has-text-right group-l"><b>53.3</b></td><td class="has-text-right">20.0</td><td class="has-text-right">26.7</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            <b>Success rate (%)</b> under different grasp pose ranking and taxonomy conditions. Each condition is
+            repeated 15 times. <b>Influence of grasp pose quality:</b> Top-1 poses achieve an average success
+            rate of 59.3%, whereas Top-2 poses reduce it to 48.0%, with slip increasing from 20.7% to 28.0%.
+            <b>Influence of grasp taxonomy:</b> replacing the task-relevant taxonomy with a functionally opposite
+            one drops the success rate from 59.3% to 35.3% at an identical grasp pose, showing that the selected
+            taxonomy significantly influences grasp stability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUALITATIVE RESULTS ===================== -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <img src="static/images/real_results.png" alt="Successful task-oriented dexterous grasp examples">
+        <h2 class="title is-4 has-text-centered mt-5">
+          Successful task-oriented dexterous grasp examples across different grasp taxonomies.
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BIBTEX ===================== -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{kim2026taskoriented,
+  title     = {Task-Oriented Dexterous Grasping via Grasp Taxonomy},
+  author    = {Kim, Hyunwoo and Choi, Jeonghwan and Kim, Dohyun and
+               Hwang, Juntae and Jin, Ilsung and Kim, Donghan},
+  booktitle = {IEEE/RSJ International Conference on Intelligent Robots
+               and Systems (IROS)},
+  year      = {2026}
+}</code></pre>
+  </div>
+</section>
+
+<!-- ===================== ACKNOWLEDGMENT ===================== -->
+<section class="section pt-0">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-4">Acknowledgment</h2>
+    <p class="is-size-7 has-text-justified">
+      This research was supported by the MSIT (Ministry of Science and ICT), Korea, under the Convergence
+      Security Core Talent Training Business Support Program (IITP-2023-RS-2023-00266615) supervised by the
+      IITP; the BK21 plus program "AgeTech-Service Convergence Major" through the National Research Foundation
+      (NRF) funded by the Ministry of Education of Korea; the IITP grant funded by the Korea government (MSIT)
+      (No. RS-2022-00155911); the Technology Innovation Program funded by MOTIE, Korea; and the Smart Farm
+      Innovation Technology Development Program through IPET and KosFarm, funded by MAFRA, MSIT, and RDA.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered is-size-7">
+          <p>
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+            Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website source code based on the <a href="https://nerfies.github.io/">Nerfies</a> project page.
+            If you want to reuse their <a href="https://github.com/nerfies/nerfies.github.io">source code</a>,
+            please credit them appropriately.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
