@@ -155,19 +155,9 @@ body {
   vertical-align: middle;
 }
 
-.result-table .sub-head th {
-  font-weight: 500;
-  font-size: 0.8rem;
-  color: #7a7a7a;
-}
-
 .result-table td,
 .result-table th {
   vertical-align: middle;
-}
-
-.result-table .group-l {
-  border-left: 1px solid #dbdbdb;
 }
 
 .result-table .is-selected-row {
